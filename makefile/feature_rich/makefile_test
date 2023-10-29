@@ -1,0 +1,49 @@
+# see https://github.com/gwu-cs-os/evening_os_hour/blob/master/f19/10.2-makefiles/03_featureful_makefile/Makefile
+
+BINARY=bin
+CODEDIRS=. ./src # source files
+INCDIRS=. ./header # can be list of headers
+
+CXX=g++
+OPT=-O0
+# generate files that encode make rules for the .h dependencies
+DEPFLAGS=-MP -MD
+# automatically add the -I onto each include directory
+CXXFLAGS=-Wall -Wextra -g $(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEPFLAGS)
+LDFLAGS= # math: -lm | ncurses -lncurses -ltinfo -lmenu
+
+# for-style iteration (foreach) and regular expression completions (wildcard)
+CXXFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.cpp))
+# regular expression replacement
+OBJECTS=$(patsubst %.cpp,%.o,$(CXXFILES))
+DEPFILES=$(patsubst %.cpp,%.d,$(CXXFILES))
+
+all: $(BINARY)
+
+$(BINARY): $(OBJECTS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
+
+# only want the .c file dependency here, thus $< instead of $^.
+%.o:%.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+clean:
+	rm -rf $(BINARY) $(OBJECTS) $(DEPFILES)
+
+# shell commands are a set of keystrokes away
+distribute: clean
+	tar -cJvf dist.tar.xz *
+
+# @ silences the printing of the command
+# $(info ...) prints output
+
+diff:
+	$(info The status of the repository, and the volume of per-file changes:)
+	@git status
+	@git diff --stat
+
+# include the dependencies
+-include $(DEPFILES)
+
+# add .PHONY so that the non-targetfile - rules work even if a file with the same name exists.
+.PHONY: all clean distribute diff
