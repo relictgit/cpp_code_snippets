@@ -1,37 +1,40 @@
 # see https://github.com/gwu-cs-os/evening_os_hour/blob/master/f19/10.2-makefiles/03_featureful_makefile/Makefile
 
 BINARY=bin
-CODEDIRS=. lib # source files
-INCDIRS=. ./include/ # can be list of headers
+CODEDIRS=. ./src # source files
+INCDIRS=. ./header # can be list of headers
 
-CC=gcc
-OPT=-O0
+CXX=g++
+OPT_DEBUG=-O0
+OPT_RELEASE=-O2
 # generate files that encode make rules for the .h dependencies
 DEPFLAGS=-MP -MD
 # automatically add the -I onto each include directory
-CFLAGS=-Wall -Wextra -g $(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEPFLAGS)
+CXXFLAGS_DEBUG=-Wall -Wextra -g $(foreach D,$(INCDIRS),-I$(D)) $(OPT_DEBUG) $(DEPFLAGS)
+CXXFLAGS_RELEASE=-Wall -Wextra $(foreach D,$(INCDIRS),-I$(D)) $(OPT_RELEASE) $(DEPFLAGS)
+LDFLAGS= # math: -lm | ncurses: -lncurses -ltinfo -lmenu
 
 # for-style iteration (foreach) and regular expression completions (wildcard)
-CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.c))
+CXXFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.cpp))
 # regular expression replacement
-OBJECTS=$(patsubst %.c,%.o,$(CFILES))
-DEPFILES=$(patsubst %.c,%.d,$(CFILES))
+OBJECTS=$(patsubst %.cpp,%.o,$(CXXFILES))
+DEPFILES=$(patsubst %.cpp,%.d,$(CXXFILES))
 
 all: $(BINARY)
 
 $(BINARY): $(OBJECTS)
-	$(CC) -o $@ $^
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
 # only want the .c file dependency here, thus $< instead of $^.
-%.o:%.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+%.o:%.cpp
+	$(CXX) $(CXXFLAGS_DEBUG) -c -o $@ $<
 
 clean:
 	rm -rf $(BINARY) $(OBJECTS) $(DEPFILES)
 
 # shell commands are a set of keystrokes away
 distribute: clean
-	tar zcvf dist.tgz *
+	tar -cJvf dist.tar.xz *
 
 # @ silences the printing of the command
 # $(info ...) prints output
