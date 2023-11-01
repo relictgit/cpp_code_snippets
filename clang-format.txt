@@ -1,0 +1,15 @@
+﻿Information
+===========
+The clang-format in your projects directory specifies
+the formatting and style used for your projects.
+You can select different programming languages to splitt
+your formatting specifications.
+
+If you need more information to this,
+then have a look at the weblinks from clang.llvm.org.
+
+Weblinks
+========
+https://zed0.co.uk/clang-format-configurator/
+https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+https://clang.llvm.org/docs/ClangFormat.html
