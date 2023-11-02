@@ -13,3 +13,7 @@ Weblinks
 https://zed0.co.uk/clang-format-configurator/
 https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 https://clang.llvm.org/docs/ClangFormat.html
+
+indentation styles
+==================
+see also the URL: https://en.wikipedia.org/wiki/Indentation_style
