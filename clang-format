@@ -1,0 +1,33 @@
+﻿---
+BasedOnStyle: LLVM
+AlignAfterOpenBracket: AlwaysBreak
+AlignEscapedNewlines: Left
+AlwaysBreakAfterDefinitionReturnType: None
+BreakBeforeBraces: Allman
+ColumnLimit: '100'
+ConstructorInitializerIndentWidth: '4'
+ContinuationIndentWidth: '4'
+IndentWidth: '4'
+ObjCBlockIndentWidth: '4'
+ObjCSpaceAfterProperty: 'true'
+ObjCSpaceBeforeProtocolList: 'true'
+PointerAlignment: Right
+SortIncludes: 'true'
+SpaceAfterCStyleCast: 'true'
+SpaceAfterLogicalNot: 'true'
+SpaceAfterTemplateKeyword: 'true'
+SpaceBeforeAssignmentOperators: 'true'
+SpaceBeforeCpp11BracedList: 'true'
+SpaceBeforeCtorInitializerColon: 'true'
+SpaceBeforeInheritanceColon: 'true'
+SpaceBeforeParens: Always
+SpaceBeforeRangeBasedForLoopColon: 'true'
+SpaceInEmptyParentheses: 'true'
+SpacesInAngles: 'true'
+SpacesInCStyleCastParentheses: 'true'
+SpacesInContainerLiterals: 'true'
+SpacesInParentheses: 'true'
+SpacesInSquareBrackets: 'true'
+TabWidth: '4'
+
+...
